@@ -17,13 +17,6 @@ const API = () => {
   const [city, setCity] = useState("");
   const [region, setRegion] = useState("");
 
-  const timeFunction = () => {
-    const timer = time.substr(11, 12);
-    const des = [...timer];
-    // const actualTime = des.slice(0, 5);
-    // setRealTime(actualTime);
-  };
-  timeFunction();
   //button to refresh the quote
   const refreshQuote = () => {
     setRefresh(!refresh);
