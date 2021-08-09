@@ -20,7 +20,7 @@ const API = () => {
   const timeFunction = () => {
     const timer = time.substr(11, 12);
     const des = [...timer];
-    const actualTime = des.slice(0, 5);
+    // const actualTime = des.slice(0, 5);
     // setRealTime(actualTime);
   };
   timeFunction();
