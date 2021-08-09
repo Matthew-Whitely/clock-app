@@ -25,7 +25,7 @@ const API = () => {
     //states for grabbing then passing data to Dispaly
 
     //GRABBING TIME API
-    const timeApiUrl = "http://worldtimeapi.org/api/ip";
+    const timeApiUrl = "https://worldtimeapi.org/api/ip";
     const cityApiUrl = "https://freegeoip.app/json/";
 
     fetch(timeApiUrl)
