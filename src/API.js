@@ -27,7 +27,6 @@ const API = () => {
 
     //GRABBING TIME API
     const timeApiUrl = "https://worldtimeapi.org/api/ip";
-    const cityApiUrl = "https://freegeoip.app/json/";
 
     fetch(timeApiUrl)
       .then((response) => {
