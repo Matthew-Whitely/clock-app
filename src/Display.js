@@ -11,7 +11,11 @@ const Header = styled.header`
   background-image:linear-gradient( rgba(46, 49, 49, 0.3), rgba(0,0,0,0.1)), ${({
     background,
   }) =>
-    background >= 5 && background <= 18 ? `url(${img})` : `url(${nightImg})`};
+    (background >= 1 && background <= 4) ||
+    (background >= 18 && background <= 24)
+      ? `url(${nightImg})`
+      : `url(${img})`};
+    
   height: 100vh;
   background-size: cover;
   background-repeat: no-repeat;
@@ -179,7 +183,8 @@ const Display = (props) => {
             <div className="headerBottomFlex">
               <div>
                 <h4>
-                  IN {props.city},{props.region}
+                  IN {props.city === "" ? "WHERE ARE YOU?" : props.city},
+                  {props.region}
                 </h4>
               </div>
               <div className="infoButton">

@@ -41,6 +41,9 @@ const API = () => {
         console.log(res.day_of_week, res.day_of_year, res.week_number);
 
         console.log(res);
+      })
+      .catch((err) => {
+        console.error(err);
       });
     //CITY
     fetch(cityApiUrl)
@@ -48,8 +51,11 @@ const API = () => {
         return response.json();
       })
       .then((res) => {
-        setCity(res.city);
+        // setCity(res.city);
         setRegion(res.country_code);
+      })
+      .catch((err) => {
+        console.error(err);
       });
     const quoteApiUrl = "https://api.quotable.io/random";
     fetch(quoteApiUrl)
@@ -58,6 +64,22 @@ const API = () => {
         setQuote(data.content);
         setQuoteAuthor(data.author);
         console.log(`${data.content} —${data.author}`);
+      });
+    fetch("https://ip-geo-location.p.rapidapi.com/ip/check?format=json", {
+      method: "GET",
+      headers: {
+        "x-rapidapi-key": "416bd0dcc8msha7e6bd427f55873p1744f6jsn44adbd8203c9",
+        "x-rapidapi-host": "ip-geo-location.p.rapidapi.com",
+      },
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        setCity(data.city.name);
+      })
+      .catch((err) => {
+        console.error(err);
       });
   }, []);
 
@@ -68,7 +90,9 @@ const API = () => {
       .then((data) => {
         setQuote(data.content);
         setQuoteAuthor(data.author);
-        console.log(`${data.content} —${data.author}`);
+      })
+      .catch((err) => {
+        console.error(err);
       });
     // setRefresh(false);
   }, [refresh]);
