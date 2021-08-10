@@ -184,7 +184,7 @@ const Display = (props) => {
               <div>
                 <h4>
                   IN {props.city === "" ? "WHERE ARE YOU?" : props.city},
-                  {props.region}
+                  {props.region},{props.country}
                 </h4>
               </div>
               <div className="infoButton">

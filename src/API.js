@@ -16,6 +16,7 @@ const API = () => {
   //CITY
   const [city, setCity] = useState("");
   const [region, setRegion] = useState("");
+  const [country, setCountry] = useState("");
 
   //button to refresh the quote
   const refreshQuote = () => {
@@ -45,18 +46,7 @@ const API = () => {
       .catch((err) => {
         console.error(err);
       });
-    //CITY
-    fetch(cityApiUrl)
-      .then((response) => {
-        return response.json();
-      })
-      .then((res) => {
-        // setCity(res.city);
-        setRegion(res.country_code);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+
     const quoteApiUrl = "https://api.quotable.io/random";
     fetch(quoteApiUrl)
       .then((response) => response.json())
@@ -65,6 +55,7 @@ const API = () => {
         setQuoteAuthor(data.author);
         console.log(`${data.content} —${data.author}`);
       });
+    //CITY
     fetch("https://ip-geo-location.p.rapidapi.com/ip/check?format=json", {
       method: "GET",
       headers: {
@@ -77,6 +68,8 @@ const API = () => {
       })
       .then((data) => {
         setCity(data.city.name);
+        setRegion(data.area.name);
+        setCountry(data.country.name);
       })
       .catch((err) => {
         console.error(err);
@@ -105,6 +98,7 @@ const API = () => {
         time={time}
         city={city}
         region={region}
+        country={country}
         timezone={timezone}
         dayOfWeek={dayOfWeek}
         dayOfYear={dayOfYear}
