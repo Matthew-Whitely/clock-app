@@ -12,6 +12,7 @@ const API = () => {
   const [dayOfWeek, setDayOfWeek] = useState("");
   const [dayOfYear, setDayOfYear] = useState("");
   const [weekNumber, setWeekNumbers] = useState("");
+  const [zoneAbrr, setZoneAbrr] = useState("");
 
   //CITY
   const [city, setCity] = useState("");
@@ -40,7 +41,7 @@ const API = () => {
         setWeekNumbers(res.week_number);
         console.log(res.day_of_week, res.day_of_year, res.week_number);
 
-        console.log(res);
+        setZoneAbrr(res.abbreviation);
       })
       .catch((err) => {
         console.error(err);
@@ -52,7 +53,6 @@ const API = () => {
       .then((data) => {
         setQuote(data.content);
         setQuoteAuthor(data.author);
-        console.log(`${data.content} —${data.author}`);
       });
     //CITY
     fetch("https://ip-geo-location.p.rapidapi.com/ip/check?format=json", {
@@ -102,6 +102,7 @@ const API = () => {
         dayOfWeek={dayOfWeek}
         dayOfYear={dayOfYear}
         weekNumber={weekNumber}
+        zoneAbrr={zoneAbrr}
       />
     </div>
   );

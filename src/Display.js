@@ -8,14 +8,13 @@ import refreshIcon from "./starter-code/assets/desktop/icon-refresh.svg";
 import upArrow from "./starter-code/assets/desktop/icon-arrow-up.svg";
 
 const Header = styled.header`
-  background-image:linear-gradient( rgba(46, 49, 49, 0.3), rgba(0,0,0,0.1)), ${({
-    background,
-  }) =>
-    (background >= 1 && background <= 4) ||
-    (background >= 18 && background <= 24)
-      ? `url(${nightImg})`
-      : `url(${img})`};
-    
+  background-image: linear-gradient(rgba(46, 49, 49, 0.3), rgba(0, 0, 0, 0.1)),
+    ${({ background }) =>
+      (background >= 1 && background <= 4) ||
+      (background >= 18 && background <= 24)
+        ? `url(${nightImg})`
+        : `url(${img})`};
+
   height: 100vh;
   background-size: cover;
   background-repeat: no-repeat;
@@ -64,6 +63,7 @@ const Header = styled.header`
     display: flex;
     justify-content: space-between;
   }
+
   .headerTextIconFlex {
     display: flex;
   }
@@ -73,15 +73,43 @@ const Header = styled.header`
   .refresh {
     border: none;
     background: none;
-    color:
-    .refresh img {
-      background-color:black
-    }
-   
+    cursor: pointer;
+  }
+  .zoneAbrr {
+    display: flex;
+    align-items: flex-end;
+  }
+  .zoneAbrr p {
+    padding-bottom: 40px;
+    font-size: 1.4rem;
+  }
+  .arrow {
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    padding: 3px 10px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+  .arrow h6 {
+    padding-right: 10px;
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+  }
+
+  .arrow img {
+    transform: ${({ open }) => (open ? "scaleY(1);" : "scaleY(-1);")};
+  }
 `;
 
 const Section = styled.section`
-  background-color: lightgrey;
+  background-color: ${({ background }) =>
+    (background >= 1 && background <= 4) ||
+    (background >= 18 && background <= 24)
+      ? `#303030`
+      : `lightgrey`};
   position: fixed;
   height: 50vh;
   z-index: 10;
@@ -97,24 +125,48 @@ const Section = styled.section`
   }
 
   p {
-    padding-top: 50px;
+    color: ${({ background }) =>
+      (background >= 1 && background <= 4) ||
+      (background >= 18 && background <= 24)
+        ? `white`
+        : `#303030`};
   }
+
   h3 {
     font-size: 3rem;
     padding-top: 15px;
+    color: ${({ background }) =>
+      (background >= 1 && background <= 4) ||
+      (background >= 18 && background <= 24)
+        ? `white`
+        : `#303030`};
   }
+
   .infoDisplay2 {
-    border-left: 2px solid black;
+    border-left: ${({ background }) =>
+      (background >= 1 && background <= 4) ||
+      (background >= 18 && background <= 24)
+        ? `2px solid lightgrey`
+        : `2px solid #303030 `};
+    margin-bottom: 40px;
   }
-  .infoDisplay h3 {
-    padding-bottom: 80px;
+
+  // .infoDisplay h3 {
+  //   padding-bottom: 80px;
+  // }
+
+  .infoDisplay2 p {
+    padding-left: 60px;
   }
+
   .infoDisplay2 p {
     padding-left: 60px;
   }
   .infoDisplay2 h3 {
-    padding-bottom: 80px;
     padding-left: 60px;
+  }
+  .sectionFix {
+    padding-bottom: 80px;
   }
 `;
 
@@ -134,7 +186,7 @@ const Display = (props) => {
     setRealTime(displayTime);
     const greetingTimeNumber = greetingTime.join("");
     const realGreeting = Number(greetingTimeNumber);
-    console.log(realGreeting);
+
     setBackground(realGreeting);
 
     if (realGreeting >= 5 && realGreeting <= 11) {
@@ -178,7 +230,10 @@ const Display = (props) => {
               )}
               <h3>GOOD {greeting} ITS CURRENTLY</h3>
             </div>
-            <h1>{realTime}</h1>
+            <div className="zoneAbrr">
+              <h1>{realTime}</h1>
+              <p>{props.zoneAbrr}</p>
+            </div>
 
             <div className="headerBottomFlex">
               <div>
@@ -189,7 +244,8 @@ const Display = (props) => {
               </div>
               <div className="infoButton">
                 <button className="arrow" onClick={() => setOpen(!open)}>
-                  <h6>More</h6> <img src={upArrow} alt="up arrow" />
+                  {open === false ? <h6>MORE</h6> : <h6>LESS</h6>}
+                  <img src={upArrow} alt="up arrow" />
                 </button>
               </div>
             </div>
@@ -197,18 +253,18 @@ const Display = (props) => {
         </div>
       </Header>
       <main>
-        <Section open={open}>
+        <Section open={open} background={background}>
           <div className="infoFlex  wrapper">
             <div className="infoDisplay">
               <p>Current Time Zone</p>
-              <h3>{props.timezone}</h3>
+              <h3 className="sectionFix">{props.timezone}</h3>
               <p>Day of Year</p>
               <h3>{props.dayOfYear}</h3>
             </div>
 
             <div className="infoDisplay2">
               <p>Day of Week</p>
-              <h3>{props.dayOfWeek}</h3>
+              <h3 className="sectionFix">{props.dayOfWeek}</h3>
               <p>Week Number</p>
               <h3>{props.weekNumber}</h3>
             </div>
