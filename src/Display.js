@@ -2,6 +2,10 @@ import styled from "styled-components";
 import { useEffect, useState } from "react";
 import img from "./starter-code/assets/desktop/bg-image-daytime.jpg";
 import nightImg from "./starter-code/assets/desktop/bg-image-nighttime.jpg";
+import tabletImgDay from "./starter-code/assets/tablet/bg-image-daytime.jpg";
+import tabletImgNight from "./starter-code/assets/tablet/bg-image-nighttime.jpg";
+import mobileImgDay from "./starter-code/assets/mobile/bg-image-daytime.jpg";
+import mobileImgNight from "./starter-code/assets/mobile/bg-image-nighttime.jpg";
 import sunIcon from "./starter-code/assets/desktop/icon-sun.svg";
 import nightIcon from "./starter-code/assets/desktop/icon-moon.svg";
 import refreshIcon from "./starter-code/assets/desktop/icon-refresh.svg";
@@ -22,6 +26,7 @@ const Header = styled.header`
   .quote {
     font-size: 1.4rem;
     padding-top: 70px;
+    padding-bottom: 10px;
   }
   .quoteFlex {
     display: flex;
@@ -62,10 +67,12 @@ const Header = styled.header`
   .headerBottomFlex {
     display: flex;
     justify-content: space-between;
+    align-items: center;
   }
 
   .headerTextIconFlex {
     display: flex;
+    align-items: center;
   }
   .headerTextIconFlex img {
     margin-right: 10px;
@@ -102,6 +109,80 @@ const Header = styled.header`
   .arrow img {
     transform: ${({ open }) => (open ? "scaleY(1);" : "scaleY(-1);")};
   }
+
+  @media (max-width: 790px) {
+    background-image: linear-gradient(rgba(46, 49, 49, 0.3), rgba(0, 0, 0, 0.1)),
+      ${({ background }) =>
+        (background >= 1 && background <= 4) ||
+        (background >= 18 && background <= 24)
+          ? `url(${tabletImgNight})`
+          : `url(${tabletImgDay})`};
+    span {
+      display: none;
+    }
+    .headerBottomFlex {
+      flex-flow: column nowrap;
+      align-items: flex-start;
+    }
+    .headerBottomFlex button {
+      margin-top: 20px;
+    }
+    h1 {
+      font-size: 10rem;
+    }
+    h3,
+    h4 {
+      font-size: 1.3rem;
+    }
+    .quoteText {
+      width: 100%;
+    }
+    .zoneAbrr p {
+      padding-bottom: 29.4px;
+      font-size: 1.4rem;
+    }
+  }
+  @media (max-width: 585px) {
+    background-image: linear-gradient(rgba(46, 49, 49, 0.3), rgba(0, 0, 0, 0.1)),
+      ${({ background }) =>
+        (background >= 1 && background <= 4) ||
+        (background >= 18 && background <= 24)
+          ? `url(${mobileImgNight})`
+          : `url(${mobileImgDay})`};
+    h1 {
+      font-size: 7rem;
+    }
+    h3 {
+      font-size: 1.3rem;
+    }
+    h4 {
+      font-size: 1rem;
+    }
+    .quote {
+      font-size: 1.1rem;
+      padding-top: 15px;
+    }
+    .quoteRefresh {
+      padding-top: 50px;
+      margin-left: 20px;
+    }
+    .zoneAbrr p {
+      padding-bottom: 19.4px;
+      font-size: 1.4rem;
+    }
+  }
+  @media (max-width: 420px) {
+    h1 {
+      font-size: 5rem;
+    }
+    h4 {
+      font-size: 0.9rem;
+    }
+    zoneAbrr p {
+      padding-bottom: 11.4px;
+      font-size: 1.4rem;
+    }
+  }
 `;
 
 const Section = styled.section`
@@ -133,7 +214,7 @@ const Section = styled.section`
   }
 
   h3 {
-    font-size: 3rem;
+    font-size: 2rem;
     padding-top: 15px;
     color: ${({ background }) =>
       (background >= 1 && background <= 4) ||
@@ -151,14 +232,6 @@ const Section = styled.section`
     margin-bottom: 40px;
   }
 
-  // .infoDisplay h3 {
-  //   padding-bottom: 80px;
-  // }
-
-  .infoDisplay2 p {
-    padding-left: 60px;
-  }
-
   .infoDisplay2 p {
     padding-left: 60px;
   }
@@ -167,6 +240,41 @@ const Section = styled.section`
   }
   .sectionFix {
     padding-bottom: 80px;
+    padding-right: 20px;
+  }
+  @media (max-width: 585px) {
+    .infoFlex {
+      grid-template-columns: 1fr;
+    }
+    .mobileSection {
+      display: Flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 40px;
+    }
+    .infoDisplay2 {
+      border: none;
+    }
+    .infoDisplay2 p {
+      padding-left: 0;
+    }
+    .sectionFix {
+      padding: 0;
+    }
+    h3 {
+      font-size: 1.3rem;
+    }
+    p {
+      font-size: 1.1rem;
+    }
+  }
+  @media (max-width: 420px) {
+    h3 {
+      font-size: 1rem;
+    }
+    p {
+      font-size: 0.8rem;
+    }
   }
 `;
 
@@ -228,7 +336,9 @@ const Display = (props) => {
               ) : (
                 <img src={nightIcon} alt="Moon icon" />
               )}
-              <h3>GOOD {greeting} ITS CURRENTLY</h3>
+              <h3>
+                GOOD {greeting} <span>ITS CURRENTLY</span>
+              </h3>
             </div>
             <div className="zoneAbrr">
               <h1>{realTime}</h1>
@@ -238,7 +348,8 @@ const Display = (props) => {
             <div className="headerBottomFlex">
               <div>
                 <h4>
-                  IN {props.city === "" ? "WHERE ARE YOU?" : props.city},
+                  <span>IN </span>
+                  {props.city === "" ? "WHERE ARE YOU?" : props.city},
                   {props.region},{props.country}
                 </h4>
               </div>
@@ -256,17 +367,25 @@ const Display = (props) => {
         <Section open={open} background={background}>
           <div className="infoFlex  wrapper">
             <div className="infoDisplay">
-              <p>Current Time Zone</p>
-              <h3 className="sectionFix">{props.timezone}</h3>
-              <p>Day of Year</p>
-              <h3>{props.dayOfYear}</h3>
+              <div className="mobileSection">
+                <p>Current Time Zone</p>
+                <h3 className="sectionFix">{props.timezone}</h3>
+              </div>
+              <div className="mobileSection">
+                <p>Day of Year</p>
+                <h3>{props.dayOfYear}</h3>
+              </div>
             </div>
 
             <div className="infoDisplay2">
-              <p>Day of Week</p>
-              <h3 className="sectionFix">{props.dayOfWeek}</h3>
-              <p>Week Number</p>
-              <h3>{props.weekNumber}</h3>
+              <div className="mobileSection">
+                <p>Day of Week</p>
+                <h3 className="sectionFix">{props.dayOfWeek}</h3>
+              </div>
+              <div className="mobileSection">
+                <p>Week Number</p>
+                <h3>{props.weekNumber}</h3>
+              </div>
             </div>
           </div>
         </Section>
